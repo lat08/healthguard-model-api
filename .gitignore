@@ -1,0 +1,68 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+# Test & coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Type checkers / linters (local)
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
+# IDE / editor
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs & local runtime noise
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Optional: exported OpenAPI (regenerate from app)
+# openapi.json
+
+# CatBoost / ML training artifacts (if created under repo)
+catboost_info/
+
+# Uncomment if you use Git LFS or store bundles outside the repo:
+# models/**/*.joblib
+# models/**/*.pkl
+# models/**/*.onnx
+# models/**/*.keras
+# models/**/*.tflite

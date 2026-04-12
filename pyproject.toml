@@ -1,0 +1,20 @@
+[project]
+name = "healthguard-api"
+version = "1.0.0"
+description = "FastAPI backend for HealthGuard Fall / Health / Sleep (joblib bundles)"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true

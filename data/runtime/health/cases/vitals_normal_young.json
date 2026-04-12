@@ -1,0 +1,20 @@
+{
+  "records": [
+    {
+      "heart_rate": 68,
+      "respiratory_rate": 14,
+      "body_temperature": 36.6,
+      "spo2": 98.0,
+      "systolic_blood_pressure": 118,
+      "diastolic_blood_pressure": 76,
+      "age": 28,
+      "gender": 0,
+      "weight_kg": 70.0,
+      "height_m": 1.75,
+      "derived_hrv": 45.0,
+      "derived_pulse_pressure": 42,
+      "derived_bmi": 22.9,
+      "derived_map": 90.0
+    }
+  ]
+}

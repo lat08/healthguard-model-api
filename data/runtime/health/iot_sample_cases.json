@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "vitals_normal_young",
+      "intent": "low_risk",
+      "description": "Young adult, vitals in typical resting range \u2014 expect lower health risk probability.",
+      "description_vi": "Ng\u01b0\u1eddi tr\u1ebb, ch\u1ec9 s\u1ed1 trong ng\u01b0\u1ee1ng ngh\u1ec9 ng\u01a1i b\u00ecnh th\u01b0\u1eddng \u2014 th\u01b0\u1eddng x\u00e1c su\u1ea5t r\u1ee7i ro th\u1ea5p.",
+      "request": {
+        "records": [
+          {
+            "heart_rate": 68,
+            "respiratory_rate": 14,
+            "body_temperature": 36.6,
+            "spo2": 98.0,
+            "systolic_blood_pressure": 118,
+            "diastolic_blood_pressure": 76,
+            "age": 28,
+            "gender": 0,
+            "weight_kg": 70.0,
+            "height_m": 1.75,
+            "derived_hrv": 45.0,
+            "derived_pulse_pressure": 42,
+            "derived_bmi": 22.9,
+            "derived_map": 90.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "vitals_borderline",
+      "intent": "moderate",
+      "description": "Mildly elevated HR/RR and borderline BP \u2014 ambiguous zone for models.",
+      "description_vi": "HR/RR h\u01a1i cao, huy\u1ebft \u00e1p ranh gi\u1edbi \u2014 v\u00f9ng x\u00e1m cho m\u00f4 h\u00ecnh.",
+      "request": {
+        "records": [
+          {
+            "heart_rate": 95,
+            "respiratory_rate": 20,
+            "body_temperature": 37.1,
+            "spo2": 95.5,
+            "systolic_blood_pressure": 132,
+            "diastolic_blood_pressure": 86,
+            "age": 52,
+            "gender": 1,
+            "weight_kg": 82.0,
+            "height_m": 1.7,
+            "derived_hrv": 28.0,
+            "derived_pulse_pressure": 46,
+            "derived_bmi": 28.4,
+            "derived_map": 101.3
+          }
+        ]
+      }
+    },
+    {
+      "id": "vitals_high_risk_pattern",
+      "intent": "high_risk",
+      "description": "Fever, hypoxia, tachycardia, hypertension \u2014 pattern often associated with high risk.",
+      "description_vi": "S\u1ed1t, SpO2 th\u1ea5p, tim \u0111\u1eadp nhanh, HA cao \u2014 th\u01b0\u1eddng t\u0103ng x\u00e1c su\u1ea5t r\u1ee7i ro.",
+      "request": {
+        "records": [
+          {
+            "heart_rate": 118,
+            "respiratory_rate": 24,
+            "body_temperature": 38.2,
+            "spo2": 92.5,
+            "systolic_blood_pressure": 148,
+            "diastolic_blood_pressure": 96,
+            "age": 67,
+            "gender": 1,
+            "weight_kg": 73.5,
+            "height_m": 1.68,
+            "derived_hrv": 24.0,
+            "derived_pulse_pressure": 52,
+            "derived_bmi": 26.0,
+            "derived_map": 113.3
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+Batch samples for POST /predict only (not HTTP PATCH). Copy entire file into Swagger Request body.
+
+1) Fall — batch_multi_windows_one_device.json
+   Body is a JSON ARRAY [window, window, ...] of IMU windows (same device_id).
+   POST /api/v1/fall/predict
+
+2) Health — batch_multi_vitals_same_patient.json
+   Body is {"records": [ ... ]} — many vital readings, same age/gender/anthropometrics.
+   POST /api/v1/health/predict
+
+3) Sleep — batch_multi_nights_one_user.json
+   Body is {"records": [ ... ]} — consecutive nights from one user_id (from CSV).
+   POST /api/v1/sleep/predict

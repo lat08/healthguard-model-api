@@ -1,0 +1,20 @@
+{
+  "records": [
+    {
+      "heart_rate": 95,
+      "respiratory_rate": 20,
+      "body_temperature": 37.1,
+      "spo2": 95.5,
+      "systolic_blood_pressure": 132,
+      "diastolic_blood_pressure": 86,
+      "age": 52,
+      "gender": 1,
+      "weight_kg": 82.0,
+      "height_m": 1.7,
+      "derived_hrv": 28.0,
+      "derived_pulse_pressure": 46,
+      "derived_bmi": 28.4,
+      "derived_map": 101.3
+    }
+  ]
+}

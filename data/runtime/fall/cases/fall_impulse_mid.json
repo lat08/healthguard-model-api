@@ -1,0 +1,1157 @@
+{
+  "device_id": "sample_impact_0001",
+  "sampling_rate": 50,
+  "window_size": 50,
+  "data": [
+    {
+      "timestamp": 1710000000,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000001,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000002,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000003,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000004,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000005,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000006,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000007,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000008,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000009,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000010,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000011,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000012,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000013,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000014,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000015,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000016,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000017,
+      "accel": {
+        "x": 0.06,
+        "y": -0.02,
+        "z": 0.99
+      },
+      "gyro": {
+        "x": 2.0,
+        "y": -1.0,
+        "z": 0.5
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000018,
+      "accel": {
+        "x": 0.06171769375059816,
+        "y": -0.04488970558278846,
+        "z": 0.7869864188542368
+      },
+      "gyro": {
+        "x": 32.7313347629493,
+        "y": 25.777526031081965,
+        "z": 9.588389468443427
+      },
+      "orientation": {
+        "pitch": 3.0,
+        "roll": -2.0,
+        "yaw": 10.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000019,
+      "accel": {
+        "x": 0.312958602929208,
+        "y": 0.050035666124476366,
+        "z": 0.9302039238513033
+      },
+      "gyro": {
+        "x": 36.796388070302356,
+        "y": -1.027156799171049,
+        "z": 14.969037045304072
+      },
+      "orientation": {
+        "pitch": 9.257378601609235,
+        "roll": -5.910861626005772,
+        "yaw": 13.128689300804616
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000020,
+      "accel": {
+        "x": 0.9435446213830188,
+        "y": -0.058972554681642184,
+        "z": 0.6873378883504843
+      },
+      "gyro": {
+        "x": 30.86889204177778,
+        "y": -36.82772316383533,
+        "z": 14.591483991703843
+      },
+      "orientation": {
+        "pitch": 15.360679774997896,
+        "roll": -9.725424859373685,
+        "yaw": 16.18033988749895
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000021,
+      "accel": {
+        "x": 1.003000105702864,
+        "y": 0.025277243025350227,
+        "z": 0.7910104684896846
+      },
+      "gyro": {
+        "x": 104.10659895755259,
+        "y": -51.65065871590749,
+        "z": 38.54443095199406
+      },
+      "orientation": {
+        "pitch": 21.15961998958187,
+        "roll": -13.349762493488669,
+        "yaw": 19.079809994790935
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000022,
+      "accel": {
+        "x": 1.531271107821457,
+        "y": -0.2634730346115697,
+        "z": 0.06596342315663561
+      },
+      "gyro": {
+        "x": 113.75621498012777,
+        "y": -70.62844134873052,
+        "z": 25.34589820287267
+      },
+      "orientation": {
+        "pitch": 26.511410091698927,
+        "roll": -16.69463130731183,
+        "yaw": 21.755705045849464
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000023,
+      "accel": {
+        "x": 1.8200873861938793,
+        "y": -0.36551282517179506,
+        "z": 0.500984095905071
+      },
+      "gyro": {
+        "x": 142.69242054127972,
+        "y": -85.68113215601372,
+        "z": 44.916705349601514
+      },
+      "orientation": {
+        "pitch": 31.284271247461902,
+        "roll": -19.67766952966369,
+        "yaw": 24.14213562373095
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000024,
+      "accel": {
+        "x": 2.0891743426529983,
+        "y": -0.4349455949068059,
+        "z": -0.19730583272759425
+      },
+      "gyro": {
+        "x": 145.3572808233866,
+        "y": -109.2735131747814,
+        "z": 39.03849535111168
+      },
+      "orientation": {
+        "pitch": 35.3606797749979,
+        "roll": -22.225424859373685,
+        "yaw": 26.18033988749895
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000025,
+      "accel": {
+        "x": 2.36419958265305,
+        "y": -0.3868135631041987,
+        "z": -0.436549331299657
+      },
+      "gyro": {
+        "x": 160.5409047914793,
+        "y": -92.98526211410528,
+        "z": 62.43418136247263
+      },
+      "orientation": {
+        "pitch": 38.640260967534715,
+        "roll": -24.275163104709193,
+        "yaw": 27.820130483767358
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000026,
+      "accel": {
+        "x": 2.5915168171706693,
+        "y": -0.4696912771123578,
+        "z": -0.32027688514801433
+      },
+      "gyro": {
+        "x": 156.9346905227567,
+        "y": -109.95770838416306,
+        "z": 60.597631252630514
+      },
+      "orientation": {
+        "pitch": 41.04226065180614,
+        "roll": -25.776412907378838,
+        "yaw": 29.02113032590307
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000027,
+      "accel": {
+        "x": 2.7223205182286043,
+        "y": -0.32884722274625633,
+        "z": -0.22167174002039972
+      },
+      "gyro": {
+        "x": 161.12081312421176,
+        "y": -124.30919982658,
+        "z": 61.499149994192464
+      },
+      "orientation": {
+        "pitch": 42.507533623805514,
+        "roll": -26.692208514878445,
+        "yaw": 29.753766811902757
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000028,
+      "accel": {
+        "x": 2.5296875131915892,
+        "y": -0.5866841162116484,
+        "z": -0.15942303700602017
+      },
+      "gyro": {
+        "x": 174.44063387884086,
+        "y": -130.4209912558806,
+        "z": 62.99162267442752
+      },
+      "orientation": {
+        "pitch": 43.0,
+        "roll": -27.0,
+        "yaw": 30.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000029,
+      "accel": {
+        "x": 2.4689219644684637,
+        "y": -0.45722851195081604,
+        "z": -0.14058520414374054
+      },
+      "gyro": {
+        "x": 162.69246629075116,
+        "y": -126.7412177293977,
+        "z": 71.26351595503996
+      },
+      "orientation": {
+        "pitch": 42.50753362380551,
+        "roll": -26.69220851487844,
+        "yaw": 29.753766811902754
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000030,
+      "accel": {
+        "x": 2.263329363827741,
+        "y": -0.7930264254931565,
+        "z": -0.5236368502026867
+      },
+      "gyro": {
+        "x": 173.6268221317777,
+        "y": -114.66302278492795,
+        "z": 56.62250413430825
+      },
+      "orientation": {
+        "pitch": 41.042260651806146,
+        "roll": -25.77641290737884,
+        "yaw": 29.021130325903073
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000031,
+      "accel": {
+        "x": 2.469644784810195,
+        "y": -0.8464284270596246,
+        "z": -2.1054139876672262e-05
+      },
+      "gyro": {
+        "x": 185.80274738095983,
+        "y": -124.83749437597986,
+        "z": 50.92193935698291
+      },
+      "orientation": {
+        "pitch": 38.640260967534715,
+        "roll": -24.275163104709197,
+        "yaw": 27.820130483767358
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000032,
+      "accel": {
+        "x": 1.9696086983530756,
+        "y": -0.538660404099103,
+        "z": -0.04607279425454486
+      },
+      "gyro": {
+        "x": 169.03533824275812,
+        "y": -70.5212391926809,
+        "z": 46.353505862175666
+      },
+      "orientation": {
+        "pitch": 35.3606797749979,
+        "roll": -22.225424859373685,
+        "yaw": 26.18033988749895
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000033,
+      "accel": {
+        "x": 2.1135259850760395,
+        "y": -0.34821691904558005,
+        "z": 0.4922100679163592
+      },
+      "gyro": {
+        "x": 127.87974086877618,
+        "y": -83.88694635169354,
+        "z": 45.85020265233553
+      },
+      "orientation": {
+        "pitch": 31.284271247461902,
+        "roll": -19.67766952966369,
+        "yaw": 24.14213562373095
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000034,
+      "accel": {
+        "x": 2.0062911826363137,
+        "y": -0.16619978991951828,
+        "z": 0.1432047912587394
+      },
+      "gyro": {
+        "x": 122.33631346678305,
+        "y": -76.96171833136191,
+        "z": 31.84911367433872
+      },
+      "orientation": {
+        "pitch": 26.51141009169893,
+        "roll": -16.69463130731183,
+        "yaw": 21.755705045849467
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000035,
+      "accel": {
+        "x": 1.331266453332684,
+        "y": -0.2223324117041005,
+        "z": 0.500926583214905
+      },
+      "gyro": {
+        "x": 83.92806828109782,
+        "y": -50.4301130696641,
+        "z": 31.139157163862006
+      },
+      "orientation": {
+        "pitch": 21.159619989581874,
+        "roll": -13.349762493488672,
+        "yaw": 19.079809994790935
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000036,
+      "accel": {
+        "x": 0.5419974460315564,
+        "y": -0.05452259689604372,
+        "z": 0.4227757227840029
+      },
+      "gyro": {
+        "x": 35.988571954099385,
+        "y": -38.95820798287394,
+        "z": 19.712867689012484
+      },
+      "orientation": {
+        "pitch": 15.3606797749979,
+        "roll": -9.725424859373689,
+        "yaw": 16.18033988749895
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000037,
+      "accel": {
+        "x": 0.34706023791473534,
+        "y": 0.046437546130080665,
+        "z": 0.5338436086775414
+      },
+      "gyro": {
+        "x": 24.054047475653192,
+        "y": -28.545247828822724,
+        "z": 9.513369739699144
+      },
+      "orientation": {
+        "pitch": 9.25737860160924,
+        "roll": -5.910861626005774,
+        "yaw": 13.12868930080462
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000038,
+      "accel": {
+        "x": 0.10182964269708611,
+        "y": -0.15118394244353175,
+        "z": 1.1348565354912454
+      },
+      "gyro": {
+        "x": 2.945035525020518,
+        "y": -29.37919379967867,
+        "z": -15.168731523176241
+      },
+      "orientation": {
+        "pitch": 3.000000000000005,
+        "roll": -2.000000000000003,
+        "yaw": 10.000000000000002
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000039,
+      "accel": {
+        "x": 0.09938403535353445,
+        "y": 0.038951634110682296,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000040,
+      "accel": {
+        "x": 0.09482899432126833,
+        "y": 0.048600877173489106,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000041,
+      "accel": {
+        "x": 0.11127799197550904,
+        "y": 0.09738248049241499,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000042,
+      "accel": {
+        "x": 0.04444475495412209,
+        "y": -0.008598579645039739,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000043,
+      "accel": {
+        "x": 0.045333807105630876,
+        "y": 0.06444583335843534,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000044,
+      "accel": {
+        "x": 0.16224736893232228,
+        "y": 0.028433028088024476,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000045,
+      "accel": {
+        "x": -0.025084992207982715,
+        "y": -0.03519964313051878,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000046,
+      "accel": {
+        "x": 0.05834816386019942,
+        "y": 0.022113555625239263,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000047,
+      "accel": {
+        "x": 0.07958056863726368,
+        "y": 0.05192905614904585,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000048,
+      "accel": {
+        "x": 0.08441268345887765,
+        "y": 0.10246698052717036,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    },
+    {
+      "timestamp": 1710000049,
+      "accel": {
+        "x": 0.06619913471593156,
+        "y": 0.006884102026222846,
+        "z": 0.85
+      },
+      "gyro": {
+        "x": 5.0,
+        "y": -3.0,
+        "z": 1.0
+      },
+      "orientation": {
+        "pitch": 25.0,
+        "roll": -18.0,
+        "yaw": 25.0
+      },
+      "environment": {
+        "floor_vibration": 0.25,
+        "room_occupancy": 1.0,
+        "pressure_mat": 95.0
+      }
+    }
+  ]
+}

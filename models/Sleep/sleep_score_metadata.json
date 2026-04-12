@@ -1,0 +1,27 @@
+{
+  "model_name": "catboost",
+  "target": "sleep_score",
+  "drop_columns": [
+    "user_id",
+    "daily_label",
+    "created_at"
+  ],
+  "metrics": {
+    "model": "catboost",
+    "mae": 2.4292579408951926,
+    "rmse": 3.052997591201497,
+    "r2": 0.6760698803183458,
+    "mean_bias": 0.06586381698980354,
+    "median_ae": 2.044358471782683,
+    "p90_ae": 5.029457531441151,
+    "within_1_point": 0.26770350761085376,
+    "within_2_points": 0.4913964262078094,
+    "within_3_points": 0.6733951025810722
+  },
+  "artifacts": {
+    "bundle_joblib": "saved_model\\sleep_score_bundle.joblib",
+    "preprocessor_joblib": "saved_model\\sleep_score_preprocessor.joblib",
+    "model_onnx": "saved_model\\sleep_score_model.onnx"
+  },
+  "onnx_note": "The ONNX file contains the trained CatBoost model on top of already preprocessed numeric features. Apply the saved sklearn preprocessor before calling the ONNX model."
+}
