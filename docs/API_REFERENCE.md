@@ -65,6 +65,62 @@ Script: `scripts/build_fall_sample_cases.py`, `build_health_sample_cases.py`, `b
 
 ---
 
+## Predict Response Extension (SHAP + Standard Blocks)
+
+`POST /api/v1/fall/predict`, `POST /api/v1/health/predict`, `POST /api/v1/health/predict/batch`,
+`POST /api/v1/sleep/predict`, va `POST /api/v1/sleep/predict/batch` van giu top-level envelope:
+
+```json
+{
+  "success": true,
+  "results": [...],
+  "total": 1
+}
+```
+
+Moi item trong `results[]` hien giu cac field legacy (`predicted_*`, `risk_level`, `requires_attention`, ...)
+de tranh gay vo client cu, dong thoi duoc bo sung them contract chuan hoa:
+
+- `status`
+- `meta`
+- `input_ref`
+- `prediction`
+- `top_features`
+- `shap`
+- `explanation`
+
+### `shap`
+
+`shap` la block contribution day du de frontend/dashboard/doc audit dung lai:
+
+```json
+{
+  "available": true,
+  "output_space": "raw_margin | prediction",
+  "base_value": -0.1523,
+  "prediction_value": 0.81,
+  "values": [
+    {
+      "feature": "spo2",
+      "feature_value": 92.5,
+      "shap_value": 0.4281,
+      "impact": 0.4281,
+      "direction": "risk_up"
+    }
+  ]
+}
+```
+
+Ghi chu:
+
+- `top_features` duoc rut gon tu `shap.values` de UI hien nhanh.
+- `top_features` uu tien cac yeu to co the hanh dong/doi chieu duoc va an bot cac bien ho so tinh
+  nhu `age`, `gender`, `weight`, `height`, `device_model`, `timezone` khi render patient-facing.
+- `output_space = raw_margin` thuong ap dung cho classifier native contribution (LightGBM/XGBoost), nen
+  `base_value + sum(shap_value)` khong nhat thiet bang probability dang hien o `prediction_value`.
+- `output_space = prediction` duoc dung khi contribution da nam cung khong gian voi diem du doan
+  (vi du sleep score).
+
 ## System
 
 `app/routers/system.py`: `GET /` redirect tới `/docs` (`include_in_schema=False`).

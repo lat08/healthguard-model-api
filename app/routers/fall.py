@@ -52,7 +52,7 @@ async def predict_fall(body: FallPredictPayload):
     )
     try:
         payloads = [_request_to_payload(w) for w in windows]
-        results = fall_service.predict(payloads)
+        results = fall_service.predict_api(payloads)
         return FallPredictionResponse(
             results=[FallPredictionResult(**r) for r in results],
             total=len(results),

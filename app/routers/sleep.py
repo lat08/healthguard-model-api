@@ -35,7 +35,7 @@ async def predict_sleep(request: SleepPredictionRequest):
         raise HTTPException(status_code=503, detail="Sleep score model is not loaded.")
     try:
         records = [rec.model_dump() for rec in request.records]
-        results = sleep_service.predict(records)
+        results = sleep_service.predict_api(records)
         return SleepPredictionResponse(
             results=[SleepPredictionResult(**r) for r in results],
             total=len(results),

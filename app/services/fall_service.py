@@ -7,11 +7,36 @@ from typing import Any
 
 import joblib
 import numpy as np
+from xgboost import DMatrix
 
 from app.config import settings
 from app.services.fall_featurize import featurize_payloads
+from app.services.prediction_contract import (
+    build_explanation,
+    build_shap_payload,
+    build_top_features,
+    create_request_id,
+    make_input_ref,
+    make_meta,
+)
 
 logger = logging.getLogger(__name__)
+
+TOP_FEATURE_PRIORITY = [
+    "floor_vibration_mean",
+    "accel_x_range",
+    "accel_mag_max",
+    "gyro_mag_max",
+    "orientation_dispersion",
+    "environment_contact_score",
+]
+
+REASON_OVERRIDES = {
+    "floor_vibration_mean": "rung san tang trong luc event dang lam tang kha nang te nga",
+    "accel_x_range": "bien do gia toc lon dang giong mau te nga",
+    "accel_mag_max": "dinh gia toc lon dang day muc canh bao te nga len cao hon",
+    "gyro_mag_max": "bien thien con quay lon dang giong event te nga",
+}
 
 
 def classify_fall_risk(probability: float) -> str:
@@ -98,7 +123,7 @@ class FallModelService:
             info["load_error"] = self._last_load_error
         return info
 
-    def predict(self, payloads: list[dict]) -> list[dict]:
+    def _prepare_inputs(self, payloads: list[dict]) -> tuple[Any, np.ndarray, list[dict]]:
         if not self._loaded or self._bundle is None:
             raise RuntimeError("Fall model is not loaded.")
 
@@ -118,14 +143,39 @@ class FallModelService:
             self._bundle["preprocessor"].transform(features_df),
             dtype=np.float32,
         )
-        probs = self._bundle["model"].predict_proba(prepared)[:, 1]
+        return raw_df, prepared, features_df.to_dict(orient="records")
+
+    def _predict_probabilities(self, prepared: np.ndarray) -> np.ndarray:
+        if not self._loaded or self._bundle is None:
+            raise RuntimeError("Fall model is not loaded.")
+        return np.asarray(self._bundle["model"].predict_proba(prepared)[:, 1], dtype=np.float64)
+
+    def _feature_names_out(self) -> list[str]:
+        if not self._loaded or self._bundle is None:
+            return []
+        preprocessor = self._bundle["preprocessor"]
+        if hasattr(preprocessor, "get_feature_names_out"):
+            return [str(name) for name in preprocessor.get_feature_names_out()]
+        return [str(name) for name in self._bundle.get("feature_names") or []]
+
+    def _shap_contributions(self, prepared: np.ndarray) -> np.ndarray:
+        if not self._loaded or self._bundle is None:
+            raise RuntimeError("Fall model is not loaded.")
+        feature_names = self._feature_names_out()
+        dmatrix = DMatrix(prepared, feature_names=feature_names or None)
+        return np.asarray(
+            self._bundle["model"].get_booster().predict(dmatrix, pred_contribs=True),
+            dtype=np.float64,
+        )
+
+    def _build_prediction_rows(self, raw_df: Any, probabilities: np.ndarray) -> list[dict]:
         thr_bundle = self._bundle.get("decision_threshold")
         thr = float(thr_bundle) if thr_bundle is not None else settings.fall_thresholds.fall_true_at
         ft = settings.fall_thresholds
 
         results = []
-        for i in range(len(probs)):
-            prob_f = float(probs[i])
+        for i, probability in enumerate(probabilities):
+            prob_f = float(probability)
             pred = prob_f >= thr
             results.append(
                 {
@@ -139,6 +189,87 @@ class FallModelService:
                     "high_priority_alert": prob_f >= ft.critical_at,
                     "predicted_activity": None,
                     "activity_probability": None,
+                }
+            )
+        return results
+
+    def predict(self, payloads: list[dict]) -> list[dict]:
+        raw_df, prepared, _ = self._prepare_inputs(payloads)
+        probs = self._predict_probabilities(prepared)
+        return self._build_prediction_rows(raw_df, probs)
+
+    def predict_api(self, payloads: list[dict], request_id: str | None = None) -> list[dict]:
+        raw_df, prepared, feature_rows = self._prepare_inputs(payloads)
+        probabilities = self._predict_probabilities(prepared)
+        raw_results = self._build_prediction_rows(raw_df, probabilities)
+        shap_values = self._shap_contributions(prepared)
+        feature_names = self._feature_names_out()
+        req_id = request_id or create_request_id()
+        ft = settings.fall_thresholds
+
+        results: list[dict] = []
+        for payload, row, raw_result, shap_row in zip(
+            payloads,
+            feature_rows,
+            raw_results,
+            shap_values,
+            strict=False,
+        ):
+            probability = float(raw_result["predicted_fall_probability"])
+            prediction = {
+                "prediction_label": (
+                    "critical_fall"
+                    if probability >= ft.critical_at
+                    else "likely_fall"
+                    if probability >= ft.warning_at
+                    else "possible_fall"
+                    if probability >= ft.fall_true_at
+                    else "normal"
+                ),
+                "prediction_score": probability,
+                "prediction_band": classify_fall_risk(probability),
+                "requires_attention": raw_result["requires_attention"],
+                "high_priority_alert": raw_result["high_priority_alert"],
+                "confidence": probability,
+            }
+            shap_payload = build_shap_payload(
+                feature_names=feature_names,
+                shap_row=shap_row,
+                feature_values=row,
+                higher_prediction_means_higher_risk=True,
+                output_space="raw_margin",
+                prediction_value=probability,
+            )
+            top_features = build_top_features(
+                shap_payload=shap_payload,
+                preferred_features=TOP_FEATURE_PRIORITY,
+                reason_overrides=REASON_OVERRIDES,
+            )
+            event_timestamp = None
+            if payload.get("data"):
+                event_timestamp = payload["data"][0].get("timestamp")
+            results.append(
+                {
+                    **raw_result,
+                    "status": "ok",
+                    "meta": make_meta(
+                        model_family="fall",
+                        model_name="fall_detection",
+                        artifact_path=settings.fall_bundle_path,
+                        request_id=req_id,
+                    ),
+                    "input_ref": make_input_ref(
+                        device_id=str(payload.get("device_id")) if payload.get("device_id") else None,
+                        event_timestamp=event_timestamp,
+                    ),
+                    "prediction": prediction,
+                    "top_features": top_features,
+                    "shap": shap_payload,
+                    "explanation": build_explanation(
+                        model_family="fall",
+                        prediction=prediction,
+                        top_features=top_features,
+                    ),
                 }
             )
         return results
