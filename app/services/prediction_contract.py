@@ -155,6 +155,17 @@ def build_explanation(
     prediction: Mapping[str, Any],
     top_features: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
+    try:
+        from app.services.gemini_explainer import generate_explanation
+        gemini_result = generate_explanation(
+            model_family=model_family,
+            prediction=prediction,
+            top_features=top_features,
+        )
+        if gemini_result:
+            return gemini_result
+    except Exception:
+        pass
     if model_family == "sleep":
         return _build_sleep_explanation(prediction=prediction, top_features=top_features)
     return _build_risk_explanation(model_family=model_family, prediction=prediction, top_features=top_features)

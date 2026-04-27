@@ -66,3 +66,20 @@ catboost_info/
 # models/**/*.onnx
 # models/**/*.keras
 # models/**/*.tflite
+
+# RooCode settings (local only)
+.roo
+.rooignore
+.roomodes
+roo-code-settings-optimized.json
+.gitnexus
+
+# AI assistant config (local only)
+.claude
+.cursor/
+.windsurf/
+
+# AI agent metadata
+AGENT.md
+AGENTS.md
+CLAUDE.md
