@@ -4,6 +4,15 @@ from __future__ import annotations
 
 from pydantic import BaseModel, Field
 
+from app.schemas.common import (
+    InputReference,
+    PredictionExplanation,
+    PredictionMeta,
+    ShapDetails,
+    StandardPrediction,
+    TopFeature,
+)
+
 
 class SleepRecord(BaseModel):
     user_id: str
@@ -62,6 +71,13 @@ class SleepPredictionResult(BaseModel):
     risk_level: str
     requires_attention: bool
     high_priority_alert: bool
+    status: str = "ok"
+    meta: PredictionMeta
+    input_ref: InputReference
+    prediction: StandardPrediction
+    top_features: list[TopFeature] = Field(default_factory=list)
+    shap: ShapDetails | None = None
+    explanation: PredictionExplanation | None = None
 
 
 class SleepPredictionResponse(BaseModel):

@@ -8,12 +8,46 @@ from typing import Any
 
 import joblib
 import numpy as np
+import pandas as pd
+from catboost import Pool
 
 from app.config import settings
+from app.services.prediction_contract import (
+    build_explanation,
+    build_shap_payload,
+    build_top_features,
+    create_request_id,
+    make_input_ref,
+    make_meta,
+)
 from app.services.sklearn_sleep_pickle_compat import patch_sklearn_column_transformer_for_legacy_sleep_pickle
 from app.services.sleep_features import prepare_inference_frame
 
 logger = logging.getLogger(__name__)
+
+TOP_FEATURE_PRIORITY = [
+    "sleep_efficiency_pct",
+    "duration_minutes",
+    "stress_score",
+    "spo2_mean_pct",
+    "sleep_latency_minutes",
+    "wake_after_sleep_onset_minutes",
+]
+
+REASON_OVERRIDES = {
+    "sleep_efficiency_pct": "hieu suat ngu thap dang lam giam sleep score",
+    "stress_score": "stress cao dang lam xau danh gia giac ngu",
+}
+
+PATIENT_FACING_EXCLUDED_FEATURES = [
+    "age",
+    "gender",
+    "weight_kg",
+    "height_cm",
+    "bmi",
+    "device_model",
+    "timezone",
+]
 
 
 def classify_sleep_score(score: float) -> str:
@@ -104,7 +138,7 @@ class SleepModelService:
             "metrics": self._metadata.get("metrics", {}),
         }
 
-    def predict(self, records: list[dict]) -> list[dict]:
+    def _prepare_inputs(self, records: list[dict]) -> tuple[pd.DataFrame, np.ndarray, list[dict]]:
         if not self._loaded or self._model is None or self._preprocessor is None:
             raise RuntimeError("Sleep model is not loaded.")
 
@@ -112,12 +146,34 @@ class SleepModelService:
         X_prep = self._preprocessor.transform(X)
         if hasattr(X_prep, "astype"):
             X_prep = X_prep.astype(np.float32)
-        raw_scores = np.asarray(self._model.predict(X_prep), dtype=np.float64).reshape(-1)
-        clipped = np.clip(raw_scores, 0, 100)
+        else:
+            X_prep = np.asarray(X_prep, dtype=np.float32)
+        return X, X_prep, X.to_dict(orient="records")
 
+    def _feature_names_out(self) -> list[str]:
+        if self._preprocessor is not None and hasattr(self._preprocessor, "get_feature_names_out"):
+            return [str(name) for name in self._preprocessor.get_feature_names_out()]
+        return []
+
+    def _predict_scores(self, prepared: np.ndarray) -> np.ndarray:
+        if not self._loaded or self._model is None:
+            raise RuntimeError("Sleep model is not loaded.")
+        raw_scores = np.asarray(self._model.predict(prepared), dtype=np.float64).reshape(-1)
+        return np.clip(raw_scores, 0, 100)
+
+    def _shap_contributions(self, prepared: np.ndarray) -> np.ndarray:
+        if not self._loaded or self._model is None:
+            raise RuntimeError("Sleep model is not loaded.")
+        pool = Pool(prepared)
+        return np.asarray(
+            self._model.get_feature_importance(data=pool, type="ShapValues"),
+            dtype=np.float64,
+        )
+
+    def _build_prediction_rows(self, scores: np.ndarray) -> list[dict]:
         t = settings.sleep_thresholds
         results: list[dict] = []
-        for idx, score in enumerate(clipped):
+        for idx, score in enumerate(scores):
             score_f = round(float(score), 2)
             lbl = classify_sleep_score(score_f)
             results.append(
@@ -128,6 +184,84 @@ class SleepModelService:
                     "risk_level": lbl,
                     "requires_attention": score_f < t.attention_below,
                     "high_priority_alert": score_f < t.alert_below,
+                }
+            )
+        return results
+
+    def predict(self, records: list[dict]) -> list[dict]:
+        _, prepared, _ = self._prepare_inputs(records)
+        clipped = self._predict_scores(prepared)
+        return self._build_prediction_rows(clipped)
+
+    def predict_api(self, records: list[dict], request_id: str | None = None) -> list[dict]:
+        _, prepared, feature_rows = self._prepare_inputs(records)
+        scores = self._predict_scores(prepared)
+        raw_results = self._build_prediction_rows(scores)
+        shap_values = self._shap_contributions(prepared)
+        feature_names = self._feature_names_out()
+        req_id = request_id or create_request_id()
+
+        results: list[dict] = []
+        for row, raw_record, raw_result, shap_row in zip(
+            feature_rows,
+            records,
+            raw_results,
+            shap_values,
+            strict=False,
+        ):
+            prediction = {
+                "prediction_label": raw_result["predicted_sleep_label"],
+                "prediction_score": raw_result["predicted_sleep_score"],
+                "prediction_band": (
+                    "critical"
+                    if raw_result["predicted_sleep_score"] < settings.sleep_thresholds.critical_below
+                    else "warning"
+                    if raw_result["predicted_sleep_score"] < settings.sleep_thresholds.poor_below
+                    else "info"
+                    if raw_result["predicted_sleep_score"] < settings.sleep_thresholds.fair_below
+                    else "normal"
+                ),
+                "requires_attention": raw_result["requires_attention"],
+                "high_priority_alert": raw_result["high_priority_alert"],
+                "confidence": round(float(raw_result["predicted_sleep_score"]) / 100.0, 6),
+            }
+            shap_payload = build_shap_payload(
+                feature_names=feature_names,
+                shap_row=shap_row,
+                feature_values=row,
+                higher_prediction_means_higher_risk=False,
+                output_space="prediction",
+                prediction_value=raw_result["predicted_sleep_score"],
+            )
+            top_features = build_top_features(
+                shap_payload=shap_payload,
+                preferred_features=TOP_FEATURE_PRIORITY,
+                reason_overrides=REASON_OVERRIDES,
+                excluded_features=PATIENT_FACING_EXCLUDED_FEATURES,
+            )
+            results.append(
+                {
+                    **raw_result,
+                    "status": "ok",
+                    "meta": make_meta(
+                        model_family="sleep",
+                        model_name="sleep_score",
+                        artifact_path=settings.sleep_bundle_path,
+                        request_id=req_id,
+                    ),
+                    "input_ref": make_input_ref(
+                        user_id=str(raw_record.get("user_id")) if raw_record.get("user_id") else None,
+                        event_timestamp=raw_record.get("sleep_end_timestamp")
+                        or raw_record.get("date_recorded"),
+                    ),
+                    "prediction": prediction,
+                    "top_features": top_features,
+                    "shap": shap_payload,
+                    "explanation": build_explanation(
+                        model_family="sleep",
+                        prediction=prediction,
+                        top_features=top_features,
+                    ),
                 }
             )
         return results

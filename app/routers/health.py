@@ -35,7 +35,7 @@ async def predict_health(request: HealthPredictionRequest):
         raise HTTPException(status_code=503, detail="Health risk model is not loaded.")
     try:
         records = [rec.model_dump() for rec in request.records]
-        results = health_service.predict(records)
+        results = health_service.predict_api(records)
         return HealthPredictionResponse(
             results=[HealthPredictionResult(**r) for r in results],
             total=len(results),

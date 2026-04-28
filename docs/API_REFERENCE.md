@@ -65,6 +65,31 @@ Script: `scripts/build_fall_sample_cases.py`, `build_health_sample_cases.py`, `b
 
 ---
 
+## Predict Response Extension (Supplement)
+
+Predict endpoints van giu top-level envelope cu:
+
+```json
+{
+  "success": true,
+  "results": [...],
+  "total": 1
+}
+```
+
+De giu tai lieu goc on dinh cho cac client da tich hop, phan mo rong lien quan den `shap`,
+`top_features`, `prediction`, `meta`, `input_ref`, `explanation` duoc mo ta rieng tai:
+
+- `READSHAP.md`
+
+Quy uoc hien tai:
+
+- cac field legacy `predicted_*`, `risk_level`, `requires_attention`, `high_priority_alert`
+  van duoc giu trong `results[]`
+- block bo sung moi duoc them song song, khong thay the contract cu
+- neu can cap nhat rieng logic SHAP/top contributors, sua tai `READSHAP.md` de tranh anh huong
+  tai lieu API goc da duoc tich hop
+
 ## System
 
 `app/routers/system.py`: `GET /` redirect tới `/docs` (`include_in_schema=False`).

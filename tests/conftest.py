@@ -8,6 +8,18 @@ import pytest
 from fastapi.testclient import TestClient
 
 
+def _meta(model_family: str, model_name: str, artifact_path: str) -> dict:
+    return {
+        "model_family": model_family,
+        "model_name": model_name,
+        "model_version": "v_current",
+        "artifact_type": "python_bundle",
+        "artifact_path": artifact_path,
+        "timestamp": "2026-04-18T00:00:00+00:00",
+        "request_id": "req_test123456",
+    }
+
+
 @pytest.fixture
 def single_sensor_sample() -> dict:
     return {
@@ -135,6 +147,56 @@ def _mock_fall(loaded: bool = True):
             "activity_probability": None,
         }
     ]
+    svc.predict_api.return_value = [
+        {
+            **svc.predict.return_value[0],
+            "status": "ok",
+            "meta": _meta("fall", "fall_detection", "models/fall/fall_bundle.joblib"),
+            "input_ref": {
+                "user_id": None,
+                "device_id": "wearable_test_0001",
+                "event_timestamp": 1710000000,
+                "source_file": None,
+            },
+            "prediction": {
+                "prediction_label": "normal",
+                "prediction_score": 0.15,
+                "prediction_band": "normal",
+                "requires_attention": False,
+                "high_priority_alert": False,
+                "confidence": 0.15,
+            },
+            "top_features": [
+                {
+                    "feature": "floor_vibration_mean",
+                    "feature_value": 0.2,
+                    "impact": 0.12,
+                    "direction": "risk_down",
+                    "reason": "floor_vibration_mean=0.2 dang lam giam nguy co",
+                }
+            ],
+            "shap": {
+                "available": True,
+                "output_space": "raw_margin",
+                "base_value": 0.0,
+                "prediction_value": 0.15,
+                "values": [
+                    {
+                        "feature": "floor_vibration_mean",
+                        "feature_value": 0.2,
+                        "shap_value": -0.12,
+                        "impact": 0.12,
+                        "direction": "risk_down",
+                    }
+                ],
+            },
+            "explanation": {
+                "short_text": "floor_vibration_mean 0.2 la cac tin hieu dang duoc model uu tien theo doi.",
+                "clinical_note": "Top features duoc tong hop tu SHAP/native contribution; nen doi chieu them voi boi canh thuc te.",
+                "recommended_actions": ["tiep tuc giam sat", "doi chieu neu co bao dong khac"],
+            },
+        }
+    ]
     svc.unavailable_detail = lambda: "Fall detection model is not loaded."
     return svc
 
@@ -158,6 +220,60 @@ def _mock_health(loaded: bool = True):
             "risk_level": "critical",
             "requires_attention": True,
             "high_priority_alert": True,
+        }
+    ]
+    svc.predict_api.return_value = [
+        {
+            **svc.predict.return_value[0],
+            "status": "ok",
+            "meta": _meta(
+                "healthguard",
+                "healthguard",
+                "models/healthguard/healthguard_bundle.joblib",
+            ),
+            "input_ref": {
+                "user_id": None,
+                "device_id": None,
+                "event_timestamp": None,
+                "source_file": None,
+            },
+            "prediction": {
+                "prediction_label": "high_risk",
+                "prediction_score": 0.88,
+                "prediction_band": "critical",
+                "requires_attention": True,
+                "high_priority_alert": True,
+                "confidence": 0.88,
+            },
+            "top_features": [
+                {
+                    "feature": "spo2",
+                    "feature_value": 92.5,
+                    "impact": 0.43,
+                    "direction": "risk_up",
+                    "reason": "SpO2 thap dang lam tang nguy co",
+                }
+            ],
+            "shap": {
+                "available": True,
+                "output_space": "raw_margin",
+                "base_value": 0.0,
+                "prediction_value": 0.88,
+                "values": [
+                    {
+                        "feature": "spo2",
+                        "feature_value": 92.5,
+                        "shap_value": 0.43,
+                        "impact": 0.43,
+                        "direction": "risk_up",
+                    }
+                ],
+            },
+            "explanation": {
+                "short_text": "spo2 92.5 dang lam tang muc do canh bao.",
+                "clinical_note": "Top features duoc tong hop tu SHAP/native contribution; nen doi chieu them voi boi canh thuc te.",
+                "recommended_actions": ["do lai chi so", "doi chieu trieu chung", "lien he nhan vien y te"],
+            },
         }
     ]
     return svc
@@ -190,6 +306,56 @@ def _mock_sleep(loaded: bool = True):
             "risk_level": "fair",
             "requires_attention": False,
             "high_priority_alert": False,
+        }
+    ]
+    svc.predict_api.return_value = [
+        {
+            **svc.predict.return_value[0],
+            "status": "ok",
+            "meta": _meta("sleep", "sleep_score", "models/Sleep/sleep_score_bundle.joblib"),
+            "input_ref": {
+                "user_id": "user_test_0001",
+                "device_id": None,
+                "event_timestamp": "2024-04-04 06:01:00",
+                "source_file": None,
+            },
+            "prediction": {
+                "prediction_label": "fair",
+                "prediction_score": 72.5,
+                "prediction_band": "info",
+                "requires_attention": False,
+                "high_priority_alert": False,
+                "confidence": 0.725,
+            },
+            "top_features": [
+                {
+                    "feature": "sleep_efficiency_pct",
+                    "feature_value": 96.2,
+                    "impact": 0.31,
+                    "direction": "risk_down",
+                    "reason": "sleep_efficiency_pct=96.2 dang lam giam nguy co",
+                }
+            ],
+            "shap": {
+                "available": True,
+                "output_space": "prediction",
+                "base_value": 70.0,
+                "prediction_value": 72.5,
+                "values": [
+                    {
+                        "feature": "sleep_efficiency_pct",
+                        "feature_value": 96.2,
+                        "shap_value": 0.31,
+                        "impact": 0.31,
+                        "direction": "risk_down",
+                    }
+                ],
+            },
+            "explanation": {
+                "short_text": "sleep_efficiency_pct 96.2 dang ho tro sleep score on dinh hon.",
+                "clinical_note": "Dien giai duoc tong hop tu SHAP tren score du doan; nen xem cung xu huong nhieu dem lien tiep.",
+                "recommended_actions": ["duy tri thoi quen ngu deu", "tiep tuc theo doi xu huong"],
+            },
         }
     ]
     return svc

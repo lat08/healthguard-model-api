@@ -7,6 +7,14 @@ from typing import Annotated
 from pydantic import BaseModel, Field
 
 from app.config import settings
+from app.schemas.common import (
+    InputReference,
+    PredictionExplanation,
+    PredictionMeta,
+    ShapDetails,
+    StandardPrediction,
+    TopFeature,
+)
 
 
 class AccelData(BaseModel):
@@ -71,6 +79,13 @@ class FallPredictionResult(BaseModel):
     high_priority_alert: bool
     predicted_activity: str | None = None
     activity_probability: float | None = None
+    status: str = "ok"
+    meta: PredictionMeta
+    input_ref: InputReference
+    prediction: StandardPrediction
+    top_features: list[TopFeature] = Field(default_factory=list)
+    shap: ShapDetails | None = None
+    explanation: PredictionExplanation | None = None
 
 
 class FallPredictionResponse(BaseModel):
