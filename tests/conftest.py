@@ -172,7 +172,7 @@ def _mock_fall(loaded: bool = True):
                     "feature_value": 0.2,
                     "impact": 0.12,
                     "direction": "risk_down",
-                    "reason": "floor_vibration_mean=0.2 dang lam giam nguy co",
+                    "reason": "floor_vibration_mean=0.2 đang làm giảm nguy cơ",
                 }
             ],
             "shap": {
@@ -191,9 +191,9 @@ def _mock_fall(loaded: bool = True):
                 ],
             },
             "explanation": {
-                "short_text": "floor_vibration_mean 0.2 la cac tin hieu dang duoc model uu tien theo doi.",
-                "clinical_note": "Top features duoc tong hop tu SHAP/native contribution; nen doi chieu them voi boi canh thuc te.",
-                "recommended_actions": ["tiep tuc giam sat", "doi chieu neu co bao dong khac"],
+                "short_text": "floor_vibration_mean 0.2 là các tín hiệu đang được model ưu tiên theo dõi.",
+                "clinical_note": "Các yếu tố hàng đầu được tổng hợp từ SHAP/đóng góp nội tại; nên đối chiếu thêm với bối cảnh thực tế.",
+                "recommended_actions": ["Tiếp tục giám sát", "Đối chiếu nếu có báo động khác"],
             },
         }
     ]
@@ -251,7 +251,7 @@ def _mock_health(loaded: bool = True):
                     "feature_value": 92.5,
                     "impact": 0.43,
                     "direction": "risk_up",
-                    "reason": "SpO2 thap dang lam tang nguy co",
+                    "reason": "SpO₂ thấp đang làm tăng nguy cơ",
                 }
             ],
             "shap": {
@@ -270,9 +270,9 @@ def _mock_health(loaded: bool = True):
                 ],
             },
             "explanation": {
-                "short_text": "spo2 92.5 dang lam tang muc do canh bao.",
-                "clinical_note": "Top features duoc tong hop tu SHAP/native contribution; nen doi chieu them voi boi canh thuc te.",
-                "recommended_actions": ["do lai chi so", "doi chieu trieu chung", "lien he nhan vien y te"],
+                "short_text": "spo2 92.5 đang làm tăng mức độ cảnh báo.",
+                "clinical_note": "Các yếu tố hàng đầu được tổng hợp từ SHAP/đóng góp nội tại; nên đối chiếu thêm với bối cảnh thực tế.",
+                "recommended_actions": ["Đo lại chỉ số", "Đối chiếu triệu chứng", "Liên hệ nhân viên y tế"],
             },
         }
     ]
@@ -333,7 +333,7 @@ def _mock_sleep(loaded: bool = True):
                     "feature_value": 96.2,
                     "impact": 0.31,
                     "direction": "risk_down",
-                    "reason": "sleep_efficiency_pct=96.2 dang lam giam nguy co",
+                    "reason": "sleep_efficiency_pct=96.2 đang làm giảm nguy cơ",
                 }
             ],
             "shap": {
@@ -352,9 +352,9 @@ def _mock_sleep(loaded: bool = True):
                 ],
             },
             "explanation": {
-                "short_text": "sleep_efficiency_pct 96.2 dang ho tro sleep score on dinh hon.",
-                "clinical_note": "Dien giai duoc tong hop tu SHAP tren score du doan; nen xem cung xu huong nhieu dem lien tiep.",
-                "recommended_actions": ["duy tri thoi quen ngu deu", "tiep tuc theo doi xu huong"],
+                "short_text": "sleep_efficiency_pct 96.2 đang hỗ trợ điểm giấc ngủ ổn định hơn.",
+                "clinical_note": "Diễn giải được tổng hợp từ SHAP trên điểm dự đoán; nên xem cùng xu hướng nhiều đêm liên tiếp.",
+                "recommended_actions": ["Duy trì thói quen ngủ đều", "Tiếp tục theo dõi xu hướng"],
             },
         }
     ]

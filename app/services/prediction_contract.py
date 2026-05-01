@@ -180,32 +180,32 @@ def _build_risk_explanation(
     risk_up = [item for item in top_features if item["direction"] == "risk_up"][:2]
     anchors = risk_up or list(top_features[:2])
     if anchors:
-        detail = " va ".join(_feature_phrase(item) for item in anchors)
+        detail = " và ".join(_feature_phrase(item) for item in anchors)
         if prediction.get("requires_attention"):
-            short_text = f"{detail} dang lam tang muc do canh bao."
+            short_text = f"{detail} đang làm tăng mức độ cảnh báo."
         else:
-            short_text = f"{detail} la cac tin hieu dang duoc model uu tien theo doi."
+            short_text = f"{detail} là các tín hiệu đang được model ưu tiên theo dõi."
     else:
-        short_text = "Khong co driver noi bat du de tong hop giai thich ngan."
+        short_text = "Không có yếu tố nổi bật để tổng hợp giải thích ngắn."
 
     clinical_note = (
-        "Top features duoc tong hop tu SHAP/native contribution; nen doi chieu them voi boi canh thuc te."
+        "Các yếu tố hàng đầu được tổng hợp từ SHAP/đóng góp nội tại; nên đối chiếu thêm với bối cảnh thực tế."
     )
     if model_family == "health":
         actions = (
-            ["do lai chi so", "doi chieu trieu chung", "lien he nhan vien y te"]
+            ["Đo lại chỉ số", "Đối chiếu triệu chứng", "Liên hệ nhân viên y tế"]
             if prediction.get("high_priority_alert")
-            else ["do lai chi so", "theo doi them 30-60 phut"]
+            else ["Đo lại chỉ số", "Theo dõi thêm 30-60 phút"]
             if prediction.get("requires_attention")
-            else ["tiep tuc theo doi dinh ky", "duy tri routine do"]
+            else ["Tiếp tục theo dõi định kỳ", "Duy trì thói quen đo"]
         )
     else:
         actions = (
-            ["kiem tra an toan ngay", "xac minh voi nguoi dung", "khoi dong quy trinh canh bao"]
+            ["Kiểm tra an toàn ngay", "Xác minh với người dùng", "Khởi động quy trình cảnh báo"]
             if prediction.get("high_priority_alert")
-            else ["xac minh event", "theo doi them cac cua so lien tiep"]
+            else ["Xác minh sự kiện", "Theo dõi thêm các cửa sổ liên tiếp"]
             if prediction.get("requires_attention")
-            else ["tiep tuc giam sat", "doi chieu neu co bao dong khac"]
+            else ["Tiếp tục giám sát", "Đối chiếu nếu có báo động khác"]
         )
     return {
         "short_text": short_text,
@@ -221,24 +221,24 @@ def _build_sleep_explanation(
 ) -> dict[str, Any]:
     anchors = list(top_features[:2])
     if anchors:
-        detail = " va ".join(_feature_phrase(item) for item in anchors)
+        detail = " và ".join(_feature_phrase(item) for item in anchors)
         if prediction.get("requires_attention"):
-            short_text = f"{detail} dang keo sleep score xuong."
+            short_text = f"{detail} đang kéo điểm giấc ngủ xuống."
         else:
-            short_text = f"{detail} dang ho tro sleep score on dinh hon."
+            short_text = f"{detail} đang hỗ trợ điểm giấc ngủ ổn định hơn."
     else:
-        short_text = "Khong co driver noi bat du de tong hop giai thich ngan."
+        short_text = "Không có yếu tố nổi bật để tổng hợp giải thích ngắn."
 
     actions = (
-        ["xem lai hieu suat ngu", "giam stress va screen time truoc khi ngu", "doi chieu cac yeu to gay giac"]
+        ["Xem lại hiệu suất ngủ", "Giảm stress và screen time trước khi ngủ", "Đối chiếu các yếu tố gây giấc"]
         if prediction.get("high_priority_alert")
-        else ["duy tri gio ngu deu", "theo doi xu huong them vai dem"]
+        else ["Duy trì giờ ngủ đều", "Theo dõi xu hướng thêm vài đêm"]
         if prediction.get("requires_attention")
-        else ["duy tri thoi quen ngu deu", "tiep tuc theo doi xu huong"]
+        else ["Duy trì thói quen ngủ đều", "Tiếp tục theo dõi xu hướng"]
     )
     return {
         "short_text": short_text,
-        "clinical_note": "Dien giai duoc tong hop tu SHAP tren score du doan; nen xem cung xu huong nhieu dem lien tiep.",
+        "clinical_note": "Diễn giải được tổng hợp từ SHAP trên điểm dự đoán; nên xem cùng xu hướng nhiều đêm liên tiếp.",
         "recommended_actions": actions[:3],
     }
 
@@ -252,10 +252,10 @@ def _build_reason(
 ) -> str:
     if direction == "risk_up" and feature in reason_overrides:
         return reason_overrides[feature]
-    verb = "tang nguy co" if direction == "risk_up" else "giam nguy co"
+    verb = "tăng nguy cơ" if direction == "risk_up" else "giảm nguy cơ"
     if feature_value is None:
-        return f"{feature} dang lam {verb}"
-    return f"{feature}={_reason_value(feature_value)} dang lam {verb}"
+        return f"{feature} đang làm {verb}"
+    return f"{feature}={_reason_value(feature_value)} đang làm {verb}"
 
 
 def _feature_phrase(item: Mapping[str, Any]) -> str:
