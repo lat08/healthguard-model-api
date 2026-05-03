@@ -59,9 +59,9 @@ async def predict_fall(body: FallPredictPayload):
         )
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc))
-    except Exception as exc:
+    except Exception:
         logger.exception("Fall prediction failed")
-        raise HTTPException(status_code=500, detail=f"Prediction error: {exc}")
+        raise HTTPException(status_code=500, detail="Prediction error")
 
 
 @router.get("/model-info", summary="Fall Model Info")

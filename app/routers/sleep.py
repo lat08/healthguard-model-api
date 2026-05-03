@@ -42,9 +42,9 @@ async def predict_sleep(request: SleepPredictionRequest):
         )
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc))
-    except Exception as exc:
+    except Exception:
         logger.exception("Sleep prediction failed")
-        raise HTTPException(status_code=500, detail=f"Prediction error: {exc}")
+        raise HTTPException(status_code=500, detail="Prediction error")
 
 
 @router.post("/predict/batch", response_model=SleepPredictionResponse, summary="Batch Predict Sleep Score")
