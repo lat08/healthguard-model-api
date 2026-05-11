@@ -83,3 +83,20 @@ roo-code-settings-optimized.json
 AGENT.md
 AGENTS.md
 CLAUDE.md
+# === AI tooling artifacts (managed by .windsurf-template) ===
+.claude/
+.code-review-graph/
+.codex_appdata/
+.codex
+.cursor/
+.gitnexus/
+.roo/
+.rooignore
+.roomodes
+.worktrees/
+roo-code-settings-optimized.json
+AGENTS.md
+CLAUDE.md
+progress.md
+task_plan.md
+
