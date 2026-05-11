@@ -77,7 +77,6 @@ roo-code-settings-optimized.json
 # AI assistant config (local only)
 .claude
 .cursor/
-.windsurf/
 
 # AI agent metadata
 AGENT.md
