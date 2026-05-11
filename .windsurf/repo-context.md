@@ -9,7 +9,7 @@ trigger: always_on
 ## This repo
 
 - **Name:** `healthguard-model-api`
-- **Path:** `d:\DoAn2\VSmartwatch\healthguard-model-api`
+- **Path:** `D:\DoAn2\VSmartwatch\healthguard-model-api`
 - **Stack:** Python FastAPI (ML model serving)
 - **Overlays applied:** `fastapi`
 - **Trunk branch:** `master`
@@ -32,4 +32,4 @@ trigger: always_on
 
 ## Last sync
 
-Generated: 2026-05-11 19:20
+Generated: 2026-05-11 20:38
