@@ -57,10 +57,10 @@ PATIENT_FACING_EXCLUDED_FEATURES = [
 ]
 
 REASON_OVERRIDES = {
-    "spo2": "SpO2 thap dang lam tang nguy co",
-    "body_temperature": "nhiet do tang dang day muc canh bao len cao hon",
-    "systolic_blood_pressure": "huyet ap tam thu dang day muc canh bao len cao hon",
-    "diastolic_blood_pressure": "huyet ap tam truong dang day muc canh bao len cao hon",
+    "spo2": "SpO₂ thấp đang làm tăng nguy cơ",
+    "body_temperature": "Nhiệt độ tăng đang đẩy mức cảnh báo lên cao hơn",
+    "systolic_blood_pressure": "Huyết áp tâm thu đang đẩy mức cảnh báo lên cao hơn",
+    "diastolic_blood_pressure": "Huyết áp tâm trương đang đẩy mức cảnh báo lên cao hơn",
 }
 
 

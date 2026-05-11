@@ -32,10 +32,10 @@ TOP_FEATURE_PRIORITY = [
 ]
 
 REASON_OVERRIDES = {
-    "floor_vibration_mean": "rung san tang trong luc event dang lam tang kha nang te nga",
-    "accel_x_range": "bien do gia toc lon dang giong mau te nga",
-    "accel_mag_max": "dinh gia toc lon dang day muc canh bao te nga len cao hon",
-    "gyro_mag_max": "bien thien con quay lon dang giong event te nga",
+    "floor_vibration_mean": "Rung sàn tăng trong lúc sự kiện đang làm tăng khả năng té ngã",
+    "accel_x_range": "Biên độ gia tốc lớn đang giống mẫu té ngã",
+    "accel_mag_max": "Đỉnh gia tốc lớn đang đẩy mức cảnh báo té ngã lên cao hơn",
+    "gyro_mag_max": "Biến thiên con quay lớn đang giống sự kiện té ngã",
 }
 
 

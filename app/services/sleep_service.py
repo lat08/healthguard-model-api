@@ -35,8 +35,8 @@ TOP_FEATURE_PRIORITY = [
 ]
 
 REASON_OVERRIDES = {
-    "sleep_efficiency_pct": "hieu suat ngu thap dang lam giam sleep score",
-    "stress_score": "stress cao dang lam xau danh gia giac ngu",
+    "sleep_efficiency_pct": "Hiệu suất ngủ thấp đang làm giảm điểm giấc ngủ",
+    "stress_score": "Điểm stress cao đang làm xấu đánh giá giấc ngủ",
 }
 
 PATIENT_FACING_EXCLUDED_FEATURES = [
