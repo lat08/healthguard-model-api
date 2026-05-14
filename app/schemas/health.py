@@ -36,6 +36,12 @@ class VitalSignsRecord(BaseModel):
     derived_bmi: float = Field(ge=5, le=100)
     derived_map: float = Field(ge=30, le=250)
 
+    # XR-003 step 2: synthetic flag fields.
+    # When True, producer filled default values for missing vitals.
+    # Service multiplies confidence x 0.5 + logs warning.
+    is_synthetic_default: bool = Field(default=False)
+    defaults_applied: list[str] = Field(default_factory=list)
+
     model_config = {
         "json_schema_extra": {
             "examples": [

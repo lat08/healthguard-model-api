@@ -27,7 +27,7 @@ def single_sensor_sample() -> dict:
         "accel": {"x": 0.42, "y": -0.18, "z": 1.12},
         "gyro": {"x": 30.0, "y": -10.0, "z": 5.0},
         "orientation": {"pitch": 10.0, "roll": 5.0, "yaw": 30.0},
-        "environment": {"floor_vibration": 0.2, "room_occupancy": 1.0, "pressure_mat": 100.0},
+        "environment": {"floor_vibration": 0.2, "room_occupancy": 1.0, "pressure_mat": 0.5},
     }
 
 
