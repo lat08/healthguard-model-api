@@ -229,6 +229,22 @@ class HealthModelService:
             shap_values,
             strict=False,
         ):
+            # XR-003 step 2: when is_synthetic_default=True, reduce confidence x 0.5
+            # to signal downstream that prediction is based on default-filled vitals.
+            is_synthetic = bool(raw_record.get("is_synthetic_default", False))
+            confidence_multiplier = 0.5 if is_synthetic else 1.0
+            if is_synthetic:
+                logger.warning(
+                    "Synthetic default record detected (defaults_applied=%s). "
+                    "Confidence reduced x0.5 for record_index=%d.",
+                    raw_record.get("defaults_applied", []),
+                    raw_result["record_index"],
+                )
+
+            adjusted_confidence = round(
+                raw_result["predicted_health_risk_probability"] * confidence_multiplier, 6
+            )
+
             prediction = {
                 "prediction_label": raw_result["predicted_health_risk_label"],
                 "prediction_score": raw_result["predicted_health_risk_probability"],
@@ -237,7 +253,8 @@ class HealthModelService:
                 else "normal",
                 "requires_attention": raw_result["requires_attention"],
                 "high_priority_alert": raw_result["high_priority_alert"],
-                "confidence": raw_result["predicted_health_risk_probability"],
+                "confidence": adjusted_confidence,
+                "is_synthetic_default": is_synthetic,
             }
             shap_payload = build_shap_payload(
                 feature_names=feature_names,
