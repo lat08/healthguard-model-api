@@ -5,9 +5,10 @@ from __future__ import annotations
 import json
 import logging
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from app.config import settings
+from app.dependencies import verify_internal_secret
 from app.schemas.sleep import (
     SleepPredictionRequest,
     SleepPredictionResponse,
@@ -29,7 +30,12 @@ def _load_sleep_sample_cases_document() -> dict:
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
-@router.post("/predict", response_model=SleepPredictionResponse, summary="Predict Sleep Score")
+@router.post(
+    "/predict",
+    response_model=SleepPredictionResponse,
+    summary="Predict Sleep Score",
+    dependencies=[Depends(verify_internal_secret)],
+)
 async def predict_sleep(request: SleepPredictionRequest):
     if not sleep_service.is_loaded:
         raise HTTPException(status_code=503, detail="Sleep score model is not loaded.")
@@ -47,7 +53,12 @@ async def predict_sleep(request: SleepPredictionRequest):
         raise HTTPException(status_code=500, detail="Prediction error")
 
 
-@router.post("/predict/batch", response_model=SleepPredictionResponse, summary="Batch Predict Sleep Score")
+@router.post(
+    "/predict/batch",
+    response_model=SleepPredictionResponse,
+    summary="Batch Predict Sleep Score",
+    dependencies=[Depends(verify_internal_secret)],
+)
 async def predict_sleep_batch(request: SleepPredictionRequest):
     return await predict_sleep(request)
 
