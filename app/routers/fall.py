@@ -5,9 +5,10 @@ from __future__ import annotations
 import json
 import logging
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from app.config import settings
+from app.dependencies import verify_internal_secret
 from app.schemas.fall import (
     FallPredictPayload,
     FallPredictionRequest,
@@ -43,6 +44,7 @@ def _request_to_payload(req: FallPredictionRequest) -> dict:
     "/predict",
     response_model=FallPredictionResponse,
     summary="Predict Fall Risk",
+    dependencies=[Depends(verify_internal_secret)],
 )
 async def predict_fall(body: FallPredictPayload):
     if not fall_service.is_loaded:

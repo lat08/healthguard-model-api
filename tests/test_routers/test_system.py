@@ -2,7 +2,7 @@ from __future__ import annotations
 
 
 def test_health_check(client):
-    r = client.get("/health")
+    r = client.get("/healthz")
     assert r.status_code == 200
     body = r.json()
     assert body["status"] == "healthy"

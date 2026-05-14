@@ -47,6 +47,13 @@ class Settings(BaseSettings):
     app_version: str = Field(default="1.0.0")
     debug: bool = Field(default=False)
 
+    # Internal service-to-service auth (ADR-005).
+    # Grace period: env unset -> log error + accept; header wrong -> 401.
+    internal_secret: str | None = Field(default=None)
+
+    # CORS env-driven allowlist. Default wildcard for dev; production must override.
+    cors_allowed_origins: list[str] = Field(default=["*"])
+
     fall_bundle_path: Path = Field(default=MODELS_ROOT / "fall" / "fall_bundle.joblib")
     fall_min_sequence_samples: int = Field(default=50, ge=1, le=10_000)
 
@@ -65,17 +72,23 @@ class Settings(BaseSettings):
         default=MODELS_ROOT / "Sleep" / "sleep_score_metadata.json",
     )
 
-    fall_sample_input_path: Path = Field(default=RUNTIME_FALL_DIR / "iot_sample_input.json")
+    fall_sample_input_path: Path = Field(
+        default=RUNTIME_FALL_DIR / "iot_sample_input.json"
+    )
     fall_sample_cases_path: Path = Field(
         default=RUNTIME_FALL_DIR / "iot_sample_cases.json",
         description="Multi-case fall windows (not_fall vs fall_like) for evaluation.",
     )
-    health_sample_input_path: Path = Field(default=RUNTIME_HEALTH_DIR / "iot_sample_input.json")
+    health_sample_input_path: Path = Field(
+        default=RUNTIME_HEALTH_DIR / "iot_sample_input.json"
+    )
     health_sample_cases_path: Path = Field(
         default=RUNTIME_HEALTH_DIR / "iot_sample_cases.json",
         description="Multi-case vital records (low vs high risk) for evaluation.",
     )
-    sleep_sample_input_path: Path = Field(default=RUNTIME_SLEEP_DIR / "iot_sample_input.json")
+    sleep_sample_input_path: Path = Field(
+        default=RUNTIME_SLEEP_DIR / "iot_sample_input.json"
+    )
     sleep_sample_cases_path: Path = Field(
         default=RUNTIME_SLEEP_DIR / "iot_sample_cases.json",
         description="Multi-case sleep sessions (good vs poor) for evaluation.",

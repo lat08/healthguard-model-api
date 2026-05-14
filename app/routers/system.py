@@ -19,7 +19,7 @@ async def root():
     return RedirectResponse(url="/docs")
 
 
-@router.get("/health", response_model=HealthCheckResponse, summary="Health Check")
+@router.get("/healthz", response_model=HealthCheckResponse, summary="Health Check")
 async def health_check():
     fall_info = ModelInfo(**fall_service.get_info())
     health_info = ModelInfo(**health_service.get_info())

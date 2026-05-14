@@ -5,9 +5,10 @@ from __future__ import annotations
 import json
 import logging
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from app.config import settings
+from app.dependencies import verify_internal_secret
 from app.schemas.health import (
     HealthPredictionRequest,
     HealthPredictionResponse,
@@ -29,7 +30,12 @@ def _load_health_sample_cases_document() -> dict:
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
-@router.post("/predict", response_model=HealthPredictionResponse, summary="Predict Health Risk")
+@router.post(
+    "/predict",
+    response_model=HealthPredictionResponse,
+    summary="Predict Health Risk",
+    dependencies=[Depends(verify_internal_secret)],
+)
 async def predict_health(request: HealthPredictionRequest):
     if not health_service.is_loaded:
         raise HTTPException(status_code=503, detail="Health risk model is not loaded.")
@@ -47,7 +53,12 @@ async def predict_health(request: HealthPredictionRequest):
         raise HTTPException(status_code=500, detail="Prediction error")
 
 
-@router.post("/predict/batch", response_model=HealthPredictionResponse, summary="Batch Predict Health Risk")
+@router.post(
+    "/predict/batch",
+    response_model=HealthPredictionResponse,
+    summary="Batch Predict Health Risk",
+    dependencies=[Depends(verify_internal_secret)],
+)
 async def predict_health_batch(request: HealthPredictionRequest):
     return await predict_health(request)
 
