@@ -1,4 +1,4 @@
-"""Fall detection via ``fall_bundle.joblib`` (LightGBM + sklearn preprocessor)."""
+"""Fall detection via ``fall_bundle.joblib`` (XGBoost + sklearn preprocessor)."""
 
 from __future__ import annotations
 
