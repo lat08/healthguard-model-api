@@ -15,20 +15,26 @@ from app.schemas.common import (
 
 
 class VitalSignsRecord(BaseModel):
-    heart_rate: float
-    respiratory_rate: float
-    body_temperature: float
-    spo2: float
-    systolic_blood_pressure: float
-    diastolic_blood_pressure: float
-    age: int
-    gender: int
-    weight_kg: float
-    height_m: float
-    derived_hrv: float
-    derived_pulse_pressure: float
-    derived_bmi: float
-    derived_map: float
+    """Single vital signs record for health risk inference.
+
+    Range constraints per F6 audit (physiological bounds) + XR-003 contract.
+    Pydantic 422 returned with structured error_code on out-of-range input.
+    """
+
+    heart_rate: float = Field(ge=20, le=250)
+    respiratory_rate: float = Field(ge=0, le=60)
+    body_temperature: float = Field(ge=30, le=45)
+    spo2: float = Field(ge=50, le=100)
+    systolic_blood_pressure: float = Field(ge=40, le=300)
+    diastolic_blood_pressure: float = Field(ge=20, le=200)
+    age: int = Field(ge=0, le=130)
+    gender: int = Field(ge=0, le=1)
+    weight_kg: float = Field(ge=1, le=500)
+    height_m: float = Field(ge=0.3, le=2.5)
+    derived_hrv: float = Field(ge=0, le=500)
+    derived_pulse_pressure: float = Field(ge=0, le=200)
+    derived_bmi: float = Field(ge=5, le=100)
+    derived_map: float = Field(ge=30, le=250)
 
     model_config = {
         "json_schema_extra": {
@@ -55,7 +61,7 @@ class VitalSignsRecord(BaseModel):
 
 
 class HealthPredictionRequest(BaseModel):
-    records: list[VitalSignsRecord] = Field(..., min_length=1)
+    records: list[VitalSignsRecord] = Field(..., min_length=1, max_length=100)
 
 
 class HealthPredictionResult(BaseModel):

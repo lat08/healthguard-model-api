@@ -18,31 +18,37 @@ from app.schemas.common import (
 
 
 class AccelData(BaseModel):
-    x: float
-    y: float
-    z: float
+    """Accelerometer reading (m/s^2). Typical consumer IMU range +/-16g ~ +/-157 m/s^2."""
+
+    x: float = Field(ge=-160, le=160)
+    y: float = Field(ge=-160, le=160)
+    z: float = Field(ge=-160, le=160)
 
 
 class GyroData(BaseModel):
-    x: float
-    y: float
-    z: float
+    """Gyroscope reading (degrees per second). Typical range +/-2000 dps."""
+
+    x: float = Field(ge=-2000, le=2000)
+    y: float = Field(ge=-2000, le=2000)
+    z: float = Field(ge=-2000, le=2000)
 
 
 class OrientationData(BaseModel):
-    pitch: float
-    roll: float
-    yaw: float
+    """Euler angles (degrees)."""
+
+    pitch: float = Field(ge=-180, le=180)
+    roll: float = Field(ge=-180, le=180)
+    yaw: float = Field(ge=-180, le=360)
 
 
 class EnvironmentData(BaseModel):
-    floor_vibration: float = 0.0
-    room_occupancy: float = 0.0
-    pressure_mat: float = 0.0
+    floor_vibration: float = Field(default=0.0, ge=0, le=100)
+    room_occupancy: float = Field(default=0.0, ge=0, le=10)
+    pressure_mat: float = Field(default=0.0, ge=0, le=1)
 
 
 class SensorSample(BaseModel):
-    timestamp: int
+    timestamp: int = Field(ge=0)
     accel: AccelData
     gyro: GyroData
     orientation: OrientationData
@@ -50,12 +56,13 @@ class SensorSample(BaseModel):
 
 
 class FallPredictionRequest(BaseModel):
-    device_id: str = "unknown"
-    sampling_rate: int = 50
-    window_size: int = 50
+    device_id: str = Field(default="unknown", max_length=64)
+    sampling_rate: int = Field(default=50, ge=1, le=200)
+    window_size: int = Field(default=50, ge=1, le=10000)
     data: list[SensorSample] = Field(
         ...,
         min_length=settings.fall_min_sequence_samples,
+        max_length=500,
         description=(
             f"IMU window: one object per timestep, length >= {settings.fall_min_sequence_samples}."
         ),
@@ -64,7 +71,7 @@ class FallPredictionRequest(BaseModel):
 
 FallPredictPayload = FallPredictionRequest | Annotated[
     list[FallPredictionRequest],
-    Field(min_length=1, description="Multiple windows: JSON array of FallPredictionRequest."),
+    Field(min_length=1, max_length=100, description="Multiple windows: JSON array of FallPredictionRequest."),
 ]
 
 
