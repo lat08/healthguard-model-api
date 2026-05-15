@@ -61,6 +61,12 @@ class StandardPrediction(BaseModel):
     requires_attention: bool
     high_priority_alert: bool
     confidence: float
+    # ADR-018 health input validation contract.
+    # Optional so non-health models (fall, sleep) keep current shape and
+    # older consumers receive ``None`` instead of a breaking shape change.
+    effective_confidence: float | None = None
+    data_quality_warning: str | None = None
+    is_synthetic_default: bool | None = None
 
 
 class TopFeature(BaseModel):

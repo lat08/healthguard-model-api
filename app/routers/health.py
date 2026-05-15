@@ -6,6 +6,7 @@ import json
 import logging
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import JSONResponse
 
 from app.config import settings
 from app.dependencies import verify_internal_secret
@@ -47,7 +48,20 @@ async def predict_health(request: HealthPredictionRequest):
             total=len(results),
         )
     except ValueError as exc:
-        raise HTTPException(status_code=422, detail=str(exc))
+        # ADR-018: structured 422 for missing-field errors raised by
+        # ``prepare_inference_frame``. Distinct ``code`` from generic
+        # Pydantic ``VALIDATION_ERROR`` so callers can branch. Returned via
+        # JSONResponse directly so the body stays flat ``{error: {...}}``
+        # instead of being nested under FastAPI's default ``detail`` envelope.
+        return JSONResponse(
+            status_code=422,
+            content={
+                "error": {
+                    "code": "MISSING_FIELDS",
+                    "message": str(exc),
+                }
+            },
+        )
     except Exception:
         logger.exception("Health prediction failed")
         raise HTTPException(status_code=500, detail="Prediction error")

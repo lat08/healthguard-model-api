@@ -86,6 +86,24 @@ def classify_health_risk(probability: float) -> str:
     return "normal"
 
 
+def _build_data_quality_warning(
+    *, is_synthetic: bool, defaults_applied: list[str]
+) -> str | None:
+    """ADR-018: build human-readable warning when synthetic defaults are present.
+
+    Returns ``None`` for clean records so non-degraded responses stay short.
+    """
+    if not is_synthetic:
+        return None
+    if defaults_applied:
+        fields = ", ".join(defaults_applied)
+        return (
+            f"Synthetic defaults applied to fields ({fields}); "
+            f"effective confidence has been reduced by 50%."
+        )
+    return "Synthetic defaults applied; effective confidence has been reduced by 50%."
+
+
 class HealthModelService:
     def __init__(self) -> None:
         self._bundle: dict[str, Any] | None = None
@@ -229,20 +247,27 @@ class HealthModelService:
             shap_values,
             strict=False,
         ):
-            # XR-003 step 2: when is_synthetic_default=True, reduce confidence x 0.5
-            # to signal downstream that prediction is based on default-filled vitals.
+            # XR-003 step 2 + ADR-018: when is_synthetic_default=True, separate
+            # raw ``confidence`` from ``effective_confidence`` (degraded x0.5)
+            # so the consumer can see both the model's raw signal and the
+            # quality-adjusted value to display.
             is_synthetic = bool(raw_record.get("is_synthetic_default", False))
+            defaults_applied = raw_record.get("defaults_applied", []) or []
             confidence_multiplier = 0.5 if is_synthetic else 1.0
             if is_synthetic:
                 logger.warning(
                     "Synthetic default record detected (defaults_applied=%s). "
-                    "Confidence reduced x0.5 for record_index=%d.",
-                    raw_record.get("defaults_applied", []),
+                    "Effective confidence reduced x0.5 for record_index=%d.",
+                    defaults_applied,
                     raw_result["record_index"],
                 )
 
-            adjusted_confidence = round(
-                raw_result["predicted_health_risk_probability"] * confidence_multiplier, 6
+            raw_confidence = round(
+                float(raw_result["predicted_health_risk_probability"]), 6
+            )
+            effective_confidence = round(raw_confidence * confidence_multiplier, 6)
+            data_quality_warning = _build_data_quality_warning(
+                is_synthetic=is_synthetic, defaults_applied=defaults_applied
             )
 
             prediction = {
@@ -253,7 +278,9 @@ class HealthModelService:
                 else "normal",
                 "requires_attention": raw_result["requires_attention"],
                 "high_priority_alert": raw_result["high_priority_alert"],
-                "confidence": adjusted_confidence,
+                "confidence": raw_confidence,
+                "effective_confidence": effective_confidence,
+                "data_quality_warning": data_quality_warning,
                 "is_synthetic_default": is_synthetic,
             }
             shap_payload = build_shap_payload(

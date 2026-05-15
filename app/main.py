@@ -5,8 +5,10 @@ from __future__ import annotations
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app.config import settings
 from app.routers import fall, health, sleep, system
@@ -64,6 +66,36 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse:
+    """ADR-018: structured 422 response for Pydantic validation failures.
+
+    Replaces the default FastAPI ``{"detail": [...]}`` envelope with a
+    machine-parseable shape so callers (mobile BE, IoT sim) can branch
+    on ``error.code`` instead of regex-matching the message.
+    """
+    details = [
+        {
+            "field": ".".join(str(p) for p in err.get("loc", []) if p != "body"),
+            "issue": err.get("msg", "validation error"),
+            "type": err.get("type", "value_error"),
+        }
+        for err in exc.errors()
+    ]
+    return JSONResponse(
+        status_code=422,
+        content={
+            "error": {
+                "code": "VALIDATION_ERROR",
+                "message": "Request body failed validation",
+                "details": details,
+            }
+        },
+    )
+
 
 app.include_router(system.router)
 app.include_router(fall.router)
